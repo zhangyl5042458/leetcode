@@ -1,5 +1,8 @@
 package topic;
 
+
+import java.util.List;
+
 /**
  * @Author: zhangyulin
  * @Date: 2020-05-29 17:09
@@ -10,6 +13,7 @@ public class LongestPalindrome {
 
     /**
      * 最长回文子串(中心扩散)
+     *
      * @param s
      * @return
      */
@@ -52,12 +56,13 @@ public class LongestPalindrome {
 
     /**
      * 最长回文子串(dp)
+     *
      * @param s
      * @return
      */
     public static String longestPalindromeDp(String s) {
         int length = s.length();
-        if (length<2){
+        if (length < 2) {
             return s;
         }
 
@@ -76,26 +81,26 @@ public class LongestPalindrome {
         for (int j = 1; j < length; j++) {
 
             for (int i = 0; i < j; i++) {
-                if (chars[i] != chars[j]){
-                    dp[i][j]  = false;
-                }else{
-                    if (j-i<=2){
-                        dp[i][j]  = true;
-                    }else{
+                if (chars[i] != chars[j]) {
+                    dp[i][j] = false;
+                } else {
+                    if (j - i <= 2) {
+                        dp[i][j] = true;
+                    } else {
                         //取左上对角的数据  dp[i+1][j-1]之前已经有结果了
 
-                        dp[i][j] = dp[i+1][j-1];
+                        dp[i][j] = dp[i + 1][j - 1];
                     }
                 }
 
-                if (dp[i][j] && j-i+1 > maxLen){
-                    maxLen = j-i+1;
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1;
                     begin = i;
                 }
 
             }
         }
-        return s.substring(begin,begin+maxLen);
+        return s.substring(begin, begin + maxLen);
 
 
     }
@@ -103,6 +108,7 @@ public class LongestPalindrome {
 
     /**
      * 最长回文子串(dp)
+     *
      * @param s
      * @return
      */
@@ -112,13 +118,13 @@ public class LongestPalindrome {
 
         char[] chars = s.toCharArray();
 
-        if (length<2){
+        if (length < 2) {
             return s;
         }
 
         boolean[][] dp = new boolean[length][length];
         for (int i = 0; i < length; i++) {
-            dp[i][i]   = true;
+            dp[i][i] = true;
         }
 
         int begin = 0;
@@ -126,23 +132,23 @@ public class LongestPalindrome {
 
         for (int j = 1; j < length; j++) {
             for (int i = 0; i < j; i++) {
-                if (chars[i]!=chars[j]){
+                if (chars[i] != chars[j]) {
                     dp[i][j] = false;
-                }else{
-                    if (j-i<3){
+                } else {
+                    if (j - i < 3) {
                         dp[i][j] = true;
-                    }else{
-                        dp[i][j] = dp[i+1][j-1];
+                    } else {
+                        dp[i][j] = dp[i + 1][j - 1];
                     }
                 }
-                if (dp[i][j] && j-i+1 > maxLen){
-                    maxLen = j-i+1;
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1;
                     begin = i;
                 }
             }
         }
 
-        return s.substring(begin,begin+maxLen);
+        return s.substring(begin, begin + maxLen);
 
 
     }
@@ -258,7 +264,7 @@ public class LongestPalindrome {
         i = 0;
         j = a.length - 1;
         while (i <= j) {
-            if (j - 1 >0){
+            if (j - 1 > 0) {
                 sum -= a[j - 1];
             }
             if (sum % k == 0) {
@@ -274,14 +280,15 @@ public class LongestPalindrome {
 
     /**
      * 最长上升子序列
+     *
      * @param nums
      * @return
      */
-    public static  int lengthOfLIS(int[] nums) {
+    public static int lengthOfLIS(int[] nums) {
 
         int length = nums.length;
 
-        if (length<=0){
+        if (length <= 0) {
             return 0;
         }
 
@@ -292,14 +299,14 @@ public class LongestPalindrome {
 
         for (int j = 1; j < length; j++) {
             for (int i = 0; i < j; i++) {
-                if (nums[j]>nums[i]){
-                    dp[j] = Math.max(dp[i]+1,dp[j]);
+                if (nums[j] > nums[i]) {
+                    dp[j] = Math.max(dp[i] + 1, dp[j]);
                 }
             }
-            if (dp[j]==0){
+            if (dp[j] == 0) {
                 dp[j] = 1;
             }
-            max = Math.max(max,dp[j]);
+            max = Math.max(max, dp[j]);
         }
         return max;
     }
@@ -307,6 +314,7 @@ public class LongestPalindrome {
 
     /**
      * 最长公共子序列
+     *
      * @param text1
      * @param text2
      * @return
@@ -319,9 +327,94 @@ public class LongestPalindrome {
 
     }
 
+    /**
+     * 整数反转
+     *
+     * @param x
+     * @return
+     */
+    public static int reverse(int x) {
+
+        boolean fushu = false;
+        if (x < 0) {
+            fushu = true;
+            x = -x;
+        }
+        String s = String.valueOf(x);
+        StringBuilder sb = new StringBuilder(s);
+        String reStr = sb.reverse().toString();
+
+        Integer integer = null;
+        try {
+            integer = Integer.valueOf(reStr);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+
+        if (fushu) {
+            integer = -integer;
+        }
+        return integer;
+    }
+
+
+    /**
+     * 字符串转换整数 (atoi)
+     *
+     * @param str
+     * @return
+     */
+    public static int myAtoi(String str) {
+        int i = 0, n = str.length();
+        while (i < n && str.charAt(i) == ' ') {
+            i++;
+        }
+        if (i == n) {
+            return 0;
+        }
+        int flag = 1;
+        if (str.charAt(i) == '+' || str.charAt(i) == '-') {
+            if (str.charAt(i) == '-') {
+                flag = -1;
+            }
+            i++;
+        }
+        int ans = 0;
+        while (i < n && Character.isDigit(str.charAt(i))) {
+            int temp = str.charAt(i) - '0';
+            if (flag == 1 && (ans > Integer.MAX_VALUE / 10 || (ans == Integer.MAX_VALUE / 10 && temp > 7))) {
+                return Integer.MAX_VALUE;
+            }
+
+            //以正数为列，考虑稳大于和加temp才大于的情况
+            if (flag == -1 && (ans > -(Integer.MIN_VALUE / 10) || (ans == -(Integer.MIN_VALUE / 10) && temp > 8))) {
+                return Integer.MIN_VALUE;
+            }
+            ans = ans * 10 + temp;
+            i++;
+        }
+        return ans * flag;
+
+    }
+
+    public static int minimumTotal(List<List<Integer>> triangle) {
+
+        int[][] dp = new int[triangle.size()][triangle.size()];
+
+        int index = 0;
+        int sum = 0;
+
+        for (int i = 0; i < triangle.size(); i++) {
+            for (int j = index; j < triangle.get(i).size(); j++) {
+                dp[i][j] = triangle.get(i).get(j);
+            }
+        }
+
+        return 0;
+    }
 
     public static void main(String[] args) {
-        int[] a = {1,3,6,7,9,4,10,5,6};
-        System.out.println(lengthOfLIS(a));
+        int[] a = {1, 3, 6, 7, 9, 4, 10, 5, 6};
+        System.out.println(reverse(2147483647));
     }
 }
