@@ -459,7 +459,7 @@ public class LongestPalindrome {
     }
 
 
-    public static int maxSubArray(int[] nums) {
+    public static int maxSubArray1(int[] nums) {
 
         int length = nums.length;
 
