@@ -584,8 +584,6 @@ public class LongestPalindrome {
             }
         }
         return count;
-
->>>>>>> 45535361eacf6dd33ad05eec4624973e6d6b3653
     }
 
     /**
