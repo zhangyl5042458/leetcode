@@ -236,6 +236,48 @@ public class LongestPalindrome {
 
 
     /**
+     * 大小为 K 且平均值大于等于阈值的子数组数目
+     * <p>
+     * i=0 j=i+threshold 双指针
+     */
+    public static int numOfSubarrays1(int[] arr, int k, int threshold) {
+        int result = 0;
+        if (k >= arr.length) {
+            return 1;
+        }
+        int i = 0;
+        int j = i+k-1;
+
+        int sum = 0;
+
+        for (int i1 = 0; i1 < i+k; i1++) {
+            sum += arr[i1];
+        }
+        if (sum/k >= threshold) {
+            result++;
+        }
+
+        i++;
+        j++;
+
+        while (j<=arr.length-1){
+
+            sum -= arr[i-1];
+
+            sum += arr[j];
+
+            if (sum/k >= threshold) {
+                result++;
+            }
+            i++;
+            j++;
+        }
+
+        return result;
+    }
+
+
+    /**
      * 和可被 K 整除的子数组
      *
      * @param a
@@ -652,8 +694,11 @@ public class LongestPalindrome {
     }
 
 
-
-
+    /**
+     * 剑指 Offer 32 - II. 从上到下打印二叉树 II
+     * @param root
+     * @return
+     */
     public static List<List<Integer>> levelOrder(TreeNode root) {
 
         LinkedList<TreeNode> linkedList = new LinkedList<TreeNode>();
@@ -872,6 +917,58 @@ public class LongestPalindrome {
 
 
     /**
+     * 四数和
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+
+        List<List<Integer>> result = new ArrayList<>();
+
+        Arrays.sort(nums);
+
+        int length = nums.length;
+
+        if (length<4){
+            return result;
+        }
+
+        for (int i = 0; i < length; i++) {
+            int diff = target - nums[i];
+
+            for (int i1 = 0; i1 < length; i1++) {
+                if (i == i1){
+                    continue;
+                }
+                 int diff1 = diff - nums[i1];
+                 int l = 0;
+                 int r = length-1;
+
+                 if (l != i && l != i1 && r != i && r != i1 && l<r){
+                     if (nums[l]+ nums[r] > diff1){
+                         r--;
+                     }else if (nums[l]+ nums[r] < diff1){
+                         l++;
+                     }else {
+                         List<Integer> list = Lists.newArrayList();
+                         list.add(nums[i]);
+                         list.add(nums[i1]);
+                         list.add(nums[l]);
+                         list.add(nums[r]);
+                         result.add(list);
+                     }
+                 }
+                 l++;
+                 r--;
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
      * 有效的括号 栈
      * @param s
      * @return
@@ -922,8 +1019,8 @@ public class LongestPalindrome {
 
     public static void main(String[] args) {
 
-        List<List<Integer>> triangle = Lists.newArrayList(Lists.newArrayList());
-        System.out.println(longestCommonSubsequence("abcde", "ace"));
+//        List<List<Integer>> triangle = Lists.newArrayList(Lists.newArrayList());
+//        System.out.println(longestCommonSubsequence("abcde", "ace"));
 //        int[] a = {1, 3, 6, 7, 9, 4, 10, 5, 6};
 //        List<List<Integer>> arg = Lists.newArrayList();
 //        arg.add(Lists.newArrayList(1,3,1));
@@ -941,6 +1038,6 @@ public class LongestPalindrome {
 //
 //        node.getRight().setLeft(new TreeNode(15));
 //        node.getRight().setRight(new TreeNode(7));
-        System.out.println(isValid("()"));
+        System.out.println(fourSum(new int[]{1, 0, -1, 0, -2, 2},0));
     }
 }
