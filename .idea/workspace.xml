@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9a06780-5faa-4ad1-a090-e8c1a7a82dd7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/datastructure/CQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/datastructure/ThreeSumObj.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/datastructure/TreeNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/datastructure/TwoDimensionalArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/topic/LongestPalindrome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/topic/LongestPalindrome.java" afterDir="false" />
-    </list>
+    <list default="true" id="a9a06780-5faa-4ad1-a090-e8c1a7a82dd7" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,7 +45,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/datastructure/CQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
+            <state relative-caret-position="700">
               <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
               <folding>
                 <element signature="e#195#204#0" expanded="true" />
@@ -519,12 +511,12 @@
       <workItem from="1594607029056" duration="1499000" />
       <workItem from="1594611870703" duration="6729000" />
       <workItem from="1594796956479" duration="57350000" />
-      <workItem from="1595578649515" duration="5434000" />
+      <workItem from="1595578649515" duration="5765000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104296000" />
+    <option name="totallyTimeSpent" value="104627000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -537,6 +529,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-477" y="-1417" width="2560" height="1417" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17275615" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -548,11 +541,11 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32981133" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23169811" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.24075472" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.24075472" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32981133" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32746196" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32679245" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.23245282" />
@@ -1101,7 +1094,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/datastructure/CQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
+        <state relative-caret-position="700">
           <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
           <folding>
             <element signature="e#195#204#0" expanded="true" />
