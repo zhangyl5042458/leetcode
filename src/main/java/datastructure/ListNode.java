@@ -2,6 +2,8 @@ package datastructure;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Author: zhangyulin
  * @Date: 2020-05-28 17:03
@@ -48,6 +50,33 @@ public class ListNode {
         }else{
             return listNode.val.toString();
         }
+    }
+
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        ListNode res = slow;
+
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        if (fast == null){
+            return res.next;
+        }
+
+        while (fast.next!=null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return res;
+
     }
 
     public static void main(String[] args) {
