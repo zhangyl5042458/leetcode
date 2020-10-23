@@ -1,7 +1,6 @@
 package topic;
 
 import datastructure.ListNode;
-import lombok.val;
 
 import java.util.*;
 
@@ -971,32 +970,6 @@ public class Hot {
 //    }
 
 
-    public static int findKthLargest(int[] nums, int k) {
-
-        int length = nums.length;
-
-        if (length<1){
-            return 0;
-        }
-        int max = Integer.MIN_VALUE;
-        int n = 0;
-
-        for (int i = 0; i < length; i++) {
-            if (nums[i] > max ){
-                max = nums[i];
-                ++n;
-            }
-            if (n==k){
-                return max;
-            }
-        }
-
-        return 0;
-
-    }
-
-
-
 
     public static String decodeString1(String s) {
 
@@ -1515,6 +1488,345 @@ public class Hot {
 //    }
 
 
+    public static int[] sortedSquares(int[] A) {
+
+        int length = A.length;
+
+        int[] res = new int[length];
+
+        int i = 0;
+        int j = length-1;
+
+        for (int index = j; index >=0; --index) {
+            int jval = A[j] * A[j];
+            int ival = A[i] * A[i];
+            if (ival>=jval){
+                res[index] = ival;
+                i++;
+            }else{
+                res[index] = jval;
+                --j;
+            }
+        }
+        return res;
+    }
+
+
+    public static List<String> commonChars(String[] A) {
+
+        String first = A[0];
+        Map<Character,Integer> map = new HashMap();
+
+        for (int i = 0; i < A[0].length(); i++) {
+            char c = first.charAt(i);
+            Integer integer = map.get(c);
+            if (integer == null){
+                map.put(c,0);
+            }else{
+                map.put(c,integer+1);
+            }
+        }
+
+        for (int i = 1; i < A.length; i++) {
+            for (int j = 0; j < A[i].length(); j++) {
+                if (map.containsKey(A[i].charAt(j))){
+                    int count = 1;
+                    for (int k = 0; k < A[i].length(); k++) {
+                        if (k==j){
+                            continue;
+                        }
+                        if (map.containsKey(A[i].charAt(k))){
+                            ++count;
+                        }
+                    }
+                    map.put(A[i].charAt(j),count);
+                }
+            }
+        }
+
+        List<String> res  = new ArrayList<>();
+
+        map.keySet().forEach(i->{
+            if (map.get(i)!=0){
+                res.add(i.toString());
+            }
+        });
+
+        return res;
+    }
+
+
+
+
+    public static int findKthLargest(int[] nums, int k) {
+
+        return quickSort(nums,0,nums.length-1,nums.length-k);
+
+    }
+
+    private static int quickSort(int[] nums, int low, int high, int index) {
+
+        int mid = getMid(nums,low,high);
+
+        if (mid == index){
+            return nums[mid];
+        }else if (mid>index){
+            return quickSort(nums, low,mid-1,index);
+        }else{
+            return quickSort(nums, mid+1,high,index);
+        }
+
+
+    }
+
+    private static int getMid(int[] nums, int low, int high) {
+
+        int target = nums[low];
+
+        while (low < high){
+
+            while (low < high && nums[high] >= target){
+                --high;
+            }
+            int highval = nums[high];
+            nums[high] = nums[low];
+            nums[low] = highval;
+
+
+
+            while (low < high && nums[low] <= target){
+                ++low;
+            }
+            int lowval = nums[low];
+            nums[low] = nums[high];
+            nums[high] = lowval;
+        }
+
+        return low;
+    }
+
+
+
+    public static List<String> generateParenthesis123(int n) {
+
+
+        List<String> ans = new ArrayList<>();
+
+
+        dfs111(new StringBuilder(),0,n,0,0,ans);
+
+        return ans;
+
+    }
+
+    private static void dfs111(StringBuilder first, int currentLen, int n,int zuo,int you, List<String> ans) {
+
+        if (currentLen == n*2){
+            ans.add(first.toString());
+            return;
+        }
+
+        if (zuo < n){
+            first.append("(");
+            dfs111(first,currentLen+1,n,zuo+1,you,ans);
+            first.deleteCharAt(first.length()-1);
+        }
+
+
+        if (you < zuo){
+            first.append(")");
+            dfs111(first,currentLen+1,n,zuo,you+1,ans);
+            first.deleteCharAt(first.length()-1);
+        }
+    }
+
+
+    public static boolean isLongPressedName(String name, String typed) {
+
+        int length = typed.length();
+        int i = 0;
+        int j = 0;
+        while (i < length - 1) {
+            if (name.charAt(j) != typed.charAt(i)) {
+                return false;
+            }
+            int len = 1;
+            int jlen = 1;
+            boolean has = false;
+            while (typed.charAt(i) == typed.charAt(i + 1)) {
+                ++i;
+                ++len;
+            }
+            while (name.charAt(j) == name.charAt(j + 1)) {
+                ++j;
+                ++jlen;
+                has = true;
+            }
+            if (jlen > len) {
+                return false;
+            }
+            if (!has) {
+                ++j;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static void sortColors(int[] nums) {
+
+        int[] res = new int[nums.length];
+
+        List<Integer> list = new ArrayList<>();
+
+        int j  = 0;
+        int  k = res.length-1;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (num==0){
+                res[j] = num;
+                ++j;
+
+            }else if (num==2){
+                res[k] = num;
+                --k;
+            }else{
+                list.add(num);
+            }
+        }
+
+        for (Integer integer : list) {
+            res[j] = integer;
+            ++j;
+        }
+
+        nums = res;
+
+    }
+
+
+
+    public static List<Integer> partitionLabels(String S) {
+        if (S==null){
+            return null;
+        }
+        if (S.equals("")){
+            return null;
+        }
+        List<Integer> res = new ArrayList<>();
+        char temp = S.charAt(0);
+
+        int index = 0;
+        while (index<S.length()){
+            int start = S.indexOf(temp);
+            int i = S.lastIndexOf(temp);
+            for (int i1 = start; i1 < i; i1++) {
+                i = Math.max(i,S.lastIndexOf(S.charAt(i1)));
+            }
+            res.add(i-start+1);
+            index = i;
+            if (i==S.length()-1){
+                break;
+            }
+            temp = S.charAt(i+1);
+        }
+
+        return res;
+
+    }
+
+
+    public String[] permutation(String s) {
+
+        int length = s.length();
+
+        char[] chars = s.toCharArray();
+
+        Arrays.sort(chars);
+
+        boolean[] used = new boolean[length];
+
+        List<String> dataList = new ArrayList<>();
+
+        permutationDfs(chars,length,0,new StringBuilder(),dataList,used,new HashSet<String>());
+
+        String[] res = new String[dataList.size()];
+
+        for (int i = 0; i < dataList.size(); i++) {
+            res[i] = dataList.get(i);
+        }
+
+        return res;
+
+    }
+
+    private void permutationDfs(char[] s, int length, int path, StringBuilder cur, List<String> dataList, boolean[] used, HashSet<String> set) {
+
+        if (path==length){
+            if (!set.contains(cur.toString())){
+                dataList.add(cur.toString());
+            }
+            return;
+        }
+
+        for (int i1 = 0; i1 < length; i1++) {
+            if (used[i1]){
+                continue;
+            }
+            if (i1>0 && s[i1]==s[i1-1] && !used[i1-1]){
+                continue;
+            }
+            cur.append(s[i1]);
+            used[i1] = true;
+            permutationDfs(s,length,path+1,cur,dataList, used, set);
+            used[i1] = false;
+            cur.deleteCharAt(cur.length()-1);
+        }
+
+
+
+
+    }
+
+
+
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        subsetsWithDupDfs(nums,new ArrayList<>(),0,nums.length,res,new boolean[nums.length]);
+        return res;
+
+    }
+
+    private static void subsetsWithDupDfs(int[] nums, List<Integer> cur, int start, int end, List<List<Integer>> res, boolean[] used) {
+
+        res.add(cur);
+
+        if (start+1 == end){
+            return;
+        }
+
+
+
+        for (int i = start; i < end; i++) {
+            if (used[i]){
+                continue;
+            }
+//            if (i>0 && end-start>1 && nums[i] == nums[i-1] && !used[i-1]){
+//                continue;
+//            }
+            cur.add(nums[i]);
+            used[i] = true;
+            subsetsWithDupDfs(nums,cur,start+1,end,res,used);
+            cur.remove(nums[i]);
+            used[i] = false;
+        }
+
+    }
+
+
     public static void main(String[] args) {
 
 
@@ -1527,7 +1839,8 @@ public class Hot {
 //        System.out.println(trap1(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
 //        System.out.println(lengthOfLongestSubstring1234("pwwkew"));
 //        System.out.println(rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}}));
-        System.out.println(myPow(2,10));
+//        System.out.println(myPow(2,10));
+        System.out.println(subsetsWithDup(new int[]{1,2,2}));
 //
 //        ListNode listNode1 = new ListNode(2);
 //        listNode1.setNext(new ListNode(4));
