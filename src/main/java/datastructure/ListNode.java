@@ -2,6 +2,7 @@ package datastructure;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -66,6 +67,32 @@ public class ListNode {
         }
     }
 
+
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        ListNode res = slow;
+
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        if (fast == null){
+            return res.next;
+        }
+
+        while (fast.next!=null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return res;
+
+    }
 
 
     public static class LRUCache {
