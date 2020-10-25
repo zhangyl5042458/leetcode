@@ -68,7 +68,7 @@ public class ListNode {
     }
 
 
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public static ListNode removeNthFromEnd1(ListNode head, int n) {
 
         ListNode slow = head;
         ListNode fast = head;
@@ -896,7 +896,7 @@ public class ListNode {
 //        ListNode[] list = new ListNode[]{node1,node2,node3};
 //
 //        System.out.println(reverseKGroup(listNode,3));
-        System.out.println(removeNthFromEnd123(listNode,1));
+        System.out.println(removeNthFromEnd1(listNode,1));
 
 //        LRUCache lruCache = new LRUCache(2);
 //        lruCache.put(1,1);

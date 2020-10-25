@@ -13,6 +13,8 @@ import java.util.*;
 public class Hot {
 
 
+
+
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
         if (l1 == null) {
@@ -1515,6 +1517,39 @@ public class Hot {
 //    }
 
 
+    public static int threeSumClosest(int[] nums, int target) {
+
+        int res = nums[0]+nums[1]+nums[2];
+        int abs = Math.abs(target-res);
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length-2; i++) {
+            int j = i+1;
+            int k = nums.length-1;
+            while (j < k){
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == target){
+                    return sum;
+                }
+                int absin = Math.abs(target - sum);
+                if (abs >= absin) {
+                    abs = absin;
+                    res = sum;
+                }
+                if (sum >target){
+                    k--;
+                }else{
+                    j++;
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+
     public static void main(String[] args) {
 
 
@@ -1527,7 +1562,7 @@ public class Hot {
 //        System.out.println(trap1(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
 //        System.out.println(lengthOfLongestSubstring1234("pwwkew"));
 //        System.out.println(rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}}));
-        System.out.println(myPow(2,10));
+        System.out.println(threeSumClosest(new int[]{-1,2,1,-4},1));
 //
 //        ListNode listNode1 = new ListNode(2);
 //        listNode1.setNext(new ListNode(4));
