@@ -17,6 +17,7 @@ public class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
+    TreeNode next;
 
     public TreeNode(int x) {
         val = x;
@@ -160,16 +161,82 @@ public class TreeNode {
         return res;
     }
 
+    private static int maxVal = Integer.MIN_VALUE;
+
+
+    public static int maxPathSum123(TreeNode root) {
+
+        getChild(root);
+
+        return maxVal;
+
+    }
+
+    private static int getChild(TreeNode root) {
+
+        if (root.left == null && root.right == null){
+            maxVal = Math.max(maxVal,root.val);
+            return root.val;
+        }
+
+
+        int leftVal = 0;
+        int rightVal = 0;
+        if (root.left != null){
+            leftVal= Math.max(getChild(root.left),0);
+        }
+        if (root.right != null){
+            rightVal= Math.max(getChild(root.right),0);
+        }
+
+        int sum = root.val + leftVal + rightVal;
+
+        maxVal = Math.max(sum,maxVal);
+
+        return root.val+Math.max(leftVal,rightVal);
+
+    }
+
+
+    public static int divide(int dividend, int divisor) {
+        boolean iszhengshu = (dividend>0&&divisor>0) || (dividend<0&&divisor<0);
+
+        dividend = dividend>0?dividend:0-dividend;
+        dividend = dividend==Integer.MIN_VALUE?Integer.MAX_VALUE:dividend;
+        divisor = divisor>0?divisor:0-divisor;
+        divisor = divisor==Integer.MIN_VALUE?Integer.MAX_VALUE:divisor;
+
+
+        int sum = 0;
+
+        int step = 0;
+
+        while (true){
+            sum += divisor;
+            if (sum>dividend){
+                break;
+            }
+            if (sum == dividend){
+                ++step;
+                break;
+            }
+            ++step;
+        }
+
+        return iszhengshu?step:0-step;
+
+    }
+
 
 
 
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
-        System.out.println(levelOrder(root));
+//        TreeNode root = new TreeNode(-10);
+//        root.left = new TreeNode(9);
+//        root.right = new TreeNode(-20);
+//        root.right.left = new TreeNode(-15);
+//        root.right.right = new TreeNode(7);
+        System.out.println(divide(-2147483648,-1));
     }
 }

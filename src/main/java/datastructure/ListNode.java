@@ -868,6 +868,68 @@ public class ListNode {
 
     }
 
+
+    /**
+     * digui
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+
+        if (head == null || head.next == null){
+return head;
+        }
+
+        ListNode next = head.next;
+        ListNode listNode = swapPairs(next.next);
+
+        head.next  = listNode;
+        next.next = head;
+
+        return next;
+
+    }
+
+//    /**
+//     * diedai
+//     * @param head
+//     * @return
+//     */
+//    public ListNode swapPairs1(ListNode head) {
+//
+//        ListNode temp = head;
+//
+//        while (temp.next != null && temp.next.next != null){
+//
+//            ListNode next = temp.next;
+//            ListNode next1 = temp.next.next;
+//        }
+//    }
+
+
+    public static void reorderList(ListNode head) {
+
+        ListNode slow  =head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+
+        ListNode temp = head;
+        ListNode before = temp;
+
+        while (temp.next!=null && temp.next != slow){
+            temp = temp.next;
+        }
+        temp.next = null;
+
+
+
+    }
+
+
     public static void main(String[] args) {
 //        ListNode listNode = getListNode(1);
 //        System.out.println(listNode.toString());

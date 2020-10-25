@@ -1,7 +1,6 @@
 package topic;
 
 import datastructure.ListNode;
-import lombok.val;
 
 import java.util.*;
 
@@ -973,32 +972,6 @@ public class Hot {
 //    }
 
 
-    public static int findKthLargest(int[] nums, int k) {
-
-        int length = nums.length;
-
-        if (length<1){
-            return 0;
-        }
-        int max = Integer.MIN_VALUE;
-        int n = 0;
-
-        for (int i = 0; i < length; i++) {
-            if (nums[i] > max ){
-                max = nums[i];
-                ++n;
-            }
-            if (n==k){
-                return max;
-            }
-        }
-
-        return 0;
-
-    }
-
-
-
 
     public static String decodeString1(String s) {
 
@@ -1517,35 +1490,58 @@ public class Hot {
 //    }
 
 
-    public static int threeSumClosest(int[] nums, int target) {
 
-        int res = nums[0]+nums[1]+nums[2];
-        int abs = Math.abs(target-res);
 
-        Arrays.sort(nums);
+    public String[] permutation(String s) {
 
-        for (int i = 0; i < nums.length-2; i++) {
-            int j = i+1;
-            int k = nums.length-1;
-            while (j < k){
-                int sum = nums[i] + nums[j] + nums[k];
-                if (sum == target){
-                    return sum;
-                }
-                int absin = Math.abs(target - sum);
-                if (abs >= absin) {
-                    abs = absin;
-                    res = sum;
-                }
-                if (sum >target){
-                    k--;
-                }else{
-                    j++;
-                }
-            }
+        int length = s.length();
+
+        char[] chars = s.toCharArray();
+
+        Arrays.sort(chars);
+
+        boolean[] used = new boolean[length];
+
+        List<String> dataList = new ArrayList<>();
+
+        permutationDfs(chars,length,0,new StringBuilder(),dataList,used,new HashSet<String>());
+
+        String[] res = new String[dataList.size()];
+
+        for (int i = 0; i < dataList.size(); i++) {
+            res[i] = dataList.get(i);
         }
 
         return res;
+
+    }
+
+    private void permutationDfs(char[] s, int length, int path, StringBuilder cur, List<String> dataList, boolean[] used, HashSet<String> set) {
+
+        if (path==length){
+            if (!set.contains(cur.toString())){
+                dataList.add(cur.toString());
+            }
+            return;
+        }
+
+        for (int i1 = 0; i1 < length; i1++) {
+            if (used[i1]){
+                continue;
+            }
+            if (i1>0 && s[i1]==s[i1-1] && !used[i1-1]){
+                continue;
+            }
+            cur.append(s[i1]);
+            used[i1] = true;
+            permutationDfs(s,length,path+1,cur,dataList, used, set);
+            used[i1] = false;
+            cur.deleteCharAt(cur.length()-1);
+        }
+
+
+
+
     }
 
 
@@ -1562,7 +1558,6 @@ public class Hot {
 //        System.out.println(trap1(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
 //        System.out.println(lengthOfLongestSubstring1234("pwwkew"));
 //        System.out.println(rotate(new int[][]{{1,2,3},{4,5,6},{7,8,9}}));
-        System.out.println(threeSumClosest(new int[]{-1,2,1,-4},1));
 //
 //        ListNode listNode1 = new ListNode(2);
 //        listNode1.setNext(new ListNode(4));
