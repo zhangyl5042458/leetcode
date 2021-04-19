@@ -930,6 +930,60 @@ return head;
     }
 
 
+
+    public static boolean isPalindrome(ListNode head) {
+
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode reverseListIsPalindromeNode = reverseListIsPalindrome(slow);
+
+        while (reverseListIsPalindromeNode!=null){
+            if (reverseListIsPalindromeNode.val != head.val){
+                return false;
+            }
+            reverseListIsPalindromeNode = reverseListIsPalindromeNode.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+    private static ListNode reverseListIsPalindrome(ListNode slow) {
+
+        ListNode prve = null;
+
+        while (slow!= null){
+            ListNode next = slow.next;
+            slow.next = prve;
+            prve = slow;
+            slow = next;
+        }
+
+        return prve;
+
+
+//        if (slow ==null || slow.next == null){
+//            return slow;
+//        }
+//
+//        ListNode next = slow.next;
+//
+//        ListNode listNode = reverseListIsPalindrome(next);
+//
+//        slow.next = null;
+//        next.next = slow;
+//
+//        return listNode;
+
+
+    }
+
+
     public static void main(String[] args) {
 //        ListNode listNode = getListNode(1);
 //        System.out.println(listNode.toString());
@@ -937,7 +991,10 @@ return head;
         ListNode listNode = new ListNode(4);
         listNode.next = new ListNode(2);
         listNode.next.next = new ListNode(1);
-        listNode.next.next.next = new ListNode(3);
+        listNode.next.next.next = new ListNode(2);
+        listNode.next.next.next.next = new ListNode(4);
+
+        System.out.println(isPalindrome(listNode));
 
         ListNode listNode1 = new ListNode(5);
         listNode1.next= new ListNode(6);

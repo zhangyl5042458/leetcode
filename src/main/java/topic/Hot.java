@@ -3,6 +3,7 @@ package topic;
 import datastructure.ListNode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author: zhangyulin
@@ -10,8 +11,6 @@ import java.util.*;
  * @description:
  */
 public class Hot {
-
-
 
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -489,9 +488,9 @@ public class Hot {
             return null;
         }
 
-        if (length == 1){
-            if (nums[0] == target){
-                return new int[]{0,0};
+        if (length == 1) {
+            if (nums[0] == target) {
+                return new int[]{0, 0};
             }
         }
 
@@ -526,13 +525,13 @@ public class Hot {
 
             int forwardIndex = index - 1;
 
-            while (forwardIndex >=0 && nums[forwardIndex] == target) {
+            while (forwardIndex >= 0 && nums[forwardIndex] == target) {
                 min = Math.min(min, forwardIndex);
                 --forwardIndex;
             }
 
             int backwardIndex = index + 1;
-            while (backwardIndex <= nums.length-1 &&nums[backwardIndex] == target) {
+            while (backwardIndex <= nums.length - 1 && nums[backwardIndex] == target) {
                 max = Math.max(max, backwardIndex);
                 ++backwardIndex;
             }
@@ -566,6 +565,7 @@ public class Hot {
 
     /**
      * 组合总和 (回溯)
+     *
      * @param candidates
      * @param target
      * @return
@@ -576,7 +576,7 @@ public class Hot {
 
         Deque<Integer> path = new ArrayDeque<Integer>();
 
-        dfs(candidates,target,0,path,res);
+        dfs(candidates, target, 0, path, res);
 
         return res;
 
@@ -584,20 +584,20 @@ public class Hot {
 
     private static void dfs(int[] candidates, int target, int index, Deque<Integer> path, List<List<Integer>> res) {
 
-        if (target ==0) {
+        if (target == 0) {
             res.add(new ArrayList<>(path));
             return;
         }
 
-        if (index == candidates.length){
+        if (index == candidates.length) {
             return;
         }
 
-        dfs(candidates,target,index+1,path,res);
+        dfs(candidates, target, index + 1, path, res);
 
-        if (target - candidates[index] >= 0){
+        if (target - candidates[index] >= 0) {
             path.addLast(candidates[index]);
-            dfs(candidates,target-candidates[index],index,path,res);
+            dfs(candidates, target - candidates[index], index, path, res);
             path.removeLast();
         }
     }
@@ -621,9 +621,9 @@ public class Hot {
 
         for (int i = idx; i < candidates.length; i++) {
 //            if (target - candidates[i] >= 0) {
-                combine.add(candidates[i]);
-                dfs2(candidates, target - candidates[i], ans, combine, i+1);
-                combine.remove(combine.size() - 1);
+            combine.add(candidates[i]);
+            dfs2(candidates, target - candidates[i], ans, combine, i + 1);
+            combine.remove(combine.size() - 1);
 //            }
         }
 
@@ -639,10 +639,9 @@ public class Hot {
     }
 
 
-
-
     /**
      * 组合总和 (回溯+剪枝) 使用排序+target的大小判断
+     *
      * @param candidates
      * @param target
      * @return
@@ -655,7 +654,7 @@ public class Hot {
 
         Arrays.sort(candidates);
 
-        dfs1(candidates,target,0,0,path,res);
+        dfs1(candidates, target, 0, 0, path, res);
 
         return res;
 
@@ -663,17 +662,17 @@ public class Hot {
 
     private static void dfs1(int[] candidates, int target, int sum, int curIndex, Deque<Integer> path, List<List<Integer>> res) {
 
-        if (target ==sum) {
+        if (target == sum) {
             res.add(new ArrayList<>(path));
             return;
         }
 
         for (int i = curIndex; i < candidates.length; i++) {
-            if (sum + candidates[i] <=target){
+            if (sum + candidates[i] <= target) {
                 path.addLast(candidates[i]);
-                dfs1(candidates,target,sum+candidates[i],i,path,res);
+                dfs1(candidates, target, sum + candidates[i], i, path, res);
                 path.removeLast();
-            }else{
+            } else {
                 break;
             }
         }
@@ -688,24 +687,24 @@ public class Hot {
         int rightMax = 0;
 
         int left = 0;
-        int right = length-1;
+        int right = length - 1;
 
         int res = 0;
 
-        while (left < right){
+        while (left < right) {
 
-            if (height[left] < height[right]){
-                if (height[left] > leftMax){
+            if (height[left] < height[right]) {
+                if (height[left] > leftMax) {
                     leftMax = height[left];
-                }else{
+                } else {
                     res += (leftMax - height[left]);
                 }
                 left++;
-            }else{
-                if (height[right] > rightMax){
+            } else {
+                if (height[right] > rightMax) {
                     rightMax = height[right];
-                }else{
-                    res += (rightMax-height[right]);
+                } else {
+                    res += (rightMax - height[right]);
                 }
                 --right;
             }
@@ -717,45 +716,43 @@ public class Hot {
     }
 
 
-
     public static List<String> generateParenthesis(int n) {
 
         List<String> res = new ArrayList<>();
 
 
-        if (n==0){
+        if (n == 0) {
             return res;
         }
 
-        dfsgenerateParenthesis("",0,0,n,res);
+        dfsgenerateParenthesis("", 0, 0, n, res);
 
         return res;
 
     }
 
     private static void dfsgenerateParenthesis(String str, int left, int right, int n, List<String> res) {
-        if (str.length() == n*2){
+        if (str.length() == n * 2) {
             res.add(str);
             return;
         }
 
 
-        if(left<n){
+        if (left < n) {
             String temp = str;
             str += "(";
-            left+=1;
-            dfsgenerateParenthesis(str,left,right,n,res);
+            left += 1;
+            dfsgenerateParenthesis(str, left, right, n, res);
             str = temp;
         }
 
-        if (right<left){
+        if (right < left) {
             String temp = str;
             str += ")";
-            right+=1;
-            dfsgenerateParenthesis(str,left,right,n,res);
+            right += 1;
+            dfsgenerateParenthesis(str, left, right, n, res);
             str = temp;
         }
-
 
 
     }
@@ -772,11 +769,11 @@ public class Hot {
 
         for (int num : nums) {
             int len = 1;
-            while (set.contains(num-1)){
+            while (set.contains(num - 1)) {
                 ++len;
                 --num;
             }
-            max = Math.max(max,len);
+            max = Math.max(max, len);
         }
 
         return max;
@@ -787,10 +784,10 @@ public class Hot {
 
     public static int maximalSquare(char[][] matrix) {
 
-        if (matrix.length<1){
+        if (matrix.length < 1) {
             return 0;
         }
-        if (matrix[0].length<1){
+        if (matrix[0].length < 1) {
             return 0;
         }
 
@@ -798,49 +795,47 @@ public class Hot {
 
         int[][] dp = new int[matrix.length][matrix[0].length];
 
-        if (matrix[0][0] == '1'){
+        if (matrix[0][0] == '1') {
             dp[0][0] = 1;
             max = 1;
-        }else{
+        } else {
             dp[0][0] = 0;
         }
 
 
-
         for (int i = 1; i < matrix.length; i++) {
-            if (matrix[i][0] == '1'){
+            if (matrix[i][0] == '1') {
                 dp[i][0] = 1;
             }
-            max = Math.max(max,dp[i][0]);
+            max = Math.max(max, dp[i][0]);
         }
 
 
         for (int i = 1; i < matrix[0].length; i++) {
-            if (matrix[0][i] == '1'){
+            if (matrix[0][i] == '1') {
                 dp[0][i] = 1;
             }
-            max = Math.max(max,dp[0][i]);
+            max = Math.max(max, dp[0][i]);
         }
 
         for (int i = 1; i < matrix.length; i++) {
             for (int j = 1; j < matrix[0].length; j++) {
-                if (matrix[i][j] == '1'){
-                    dp[i][j] = Math.min(dp[i-1][j-1],Math.min(dp[i-1][j],dp[i][j-1]))+1;
-                }else{
+                if (matrix[i][j] == '1') {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1])) + 1;
+                } else {
                     dp[i][j] = 0;
                 }
-                max = Math.max(max,dp[i][j]);
+                max = Math.max(max, dp[i][j]);
             }
         }
 
-        return max*max;
+        return max * max;
     }
-
 
 
     public static int maxArea(int[] height) {
         int len = height.length;
-        if (len<2){
+        if (len < 2) {
             return 0;
         }
 
@@ -850,8 +845,8 @@ public class Hot {
         boolean flag = false;
 
         for (int i = 0; i < len; i++) {
-            for (int j = i+1; j < len; j++) {
-                area = Math.max(area, (j-i)*Math.min(height[i], height[j]));
+            for (int j = i + 1; j < len; j++) {
+                area = Math.max(area, (j - i) * Math.min(height[i], height[j]));
             }
         }
 
@@ -864,28 +859,27 @@ public class Hot {
         int length = nums.length;
 
 
-
         int i = 0;
-        int j = length-1;
+        int j = length - 1;
 
 
-        while (i<j){
-            int mid = (j-1)/2;
+        while (i < j) {
+            int mid = (j - 1) / 2;
 
-            if (nums[mid]== target){
+            if (nums[mid] == target) {
                 return mid;
-            }else if (nums[i]<nums[mid-1]){
+            } else if (nums[i] < nums[mid - 1]) {
                 //左边有序
-                if (target>=nums[i] && target <=nums[mid-1]){
-                    j = mid-1;
-                }else{
-                    i = mid+1;
+                if (target >= nums[i] && target <= nums[mid - 1]) {
+                    j = mid - 1;
+                } else {
+                    i = mid + 1;
                 }
-            }else{
-                if (target>=nums[mid+1] && target <=nums[j]){
-                    i = mid+1;
-                }else{
-                    j = mid-1;
+            } else {
+                if (target >= nums[mid + 1] && target <= nums[j]) {
+                    i = mid + 1;
+                } else {
+                    j = mid - 1;
                 }
 
             }
@@ -897,22 +891,21 @@ public class Hot {
     }
 
 
-
     public static int maxProfit(int[] prices) {
 
         int res = 0;
 
         int length = prices.length;
 
-        if (length<=0){
+        if (length <= 0) {
             return 0;
         }
         int min = Integer.MAX_VALUE;
 
         for (int i = 0; i < length; i++) {
-            if (prices[i]< min){
+            if (prices[i] < min) {
                 min = prices[i];
-            }else if (prices[i] - min > res){
+            } else if (prices[i] - min > res) {
                 res = prices[i] - min;
             }
         }
@@ -926,7 +919,7 @@ public class Hot {
         int[] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = 1;
-        for(int i = 2; i <= n; i++) {
+        for (int i = 2; i <= n; i++) {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         return dp[n];
@@ -934,27 +927,24 @@ public class Hot {
     }
 
 
+    public static int searchMid(int[] nums, int start, int end, int target) {
 
-
-
-    public static int searchMid(int[] nums,int start,int end,int target){
-
-        if (start == end){
-            if (nums[start] == target){
+        if (start == end) {
+            if (nums[start] == target) {
                 return start;
-            }else{
+            } else {
                 return -1;
             }
         }
 
         int mid = (end - start) / 2;
 
-        if (target == nums[mid]){
+        if (target == nums[mid]) {
             return mid;
-        }else if (target > nums[mid]){
-            return searchMid(nums,mid+1,end,target);
-        }else{
-            return searchMid(nums,start,mid-1,target);
+        } else if (target > nums[mid]) {
+            return searchMid(nums, mid + 1, end, target);
+        } else {
+            return searchMid(nums, start, mid - 1, target);
         }
 
     }
@@ -972,7 +962,6 @@ public class Hot {
 //    }
 
 
-
     public static String decodeString1(String s) {
 
         StringBuilder res = new StringBuilder();
@@ -982,25 +971,25 @@ public class Hot {
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (String.valueOf(c).matches("[0-9]+")){
+            if (String.valueOf(c).matches("[0-9]+")) {
                 StringBuilder sb = new StringBuilder(String.valueOf(c));
                 //数字放入栈
-                for (int j = i+1; j < s.length(); j++) {
-                    if (String.valueOf(s.charAt(j)).matches("[0-9]+")){
+                for (int j = i + 1; j < s.length(); j++) {
+                    if (String.valueOf(s.charAt(j)).matches("[0-9]+")) {
                         sb.append(s.charAt(j));
-                    }else{
-                        i=j-1;
+                    } else {
+                        i = j - 1;
                         break;
                     }
                 }
                 stack.push(sb.toString());
-            }else if (c==']'){
+            } else if (c == ']') {
                 StringBuilder sb = new StringBuilder();
-                for(;;){
+                for (; ; ) {
                     String popStr = stack.pop();
-                    if (!popStr.equals("[")){
+                    if (!popStr.equals("[")) {
                         sb.append(popStr);
-                    }else{
+                    } else {
                         break;
                     }
                 }
@@ -1011,12 +1000,12 @@ public class Hot {
                 for (int integer = 0; integer < times; integer++) {
                     stack.push(reverseStr.toString());
                 }
-            }else{
+            } else {
                 stack.push(String.valueOf(c));
             }
         }
 
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             String pop = stack.pop();
             res.append(new StringBuffer(pop).reverse());
         }
@@ -1024,12 +1013,11 @@ public class Hot {
     }
 
 
-
     public int findDuplicate(int[] nums) {
         int len = nums.length;
         for (int i = 0; i < len; i++) {
-            for (int j = i+1; j < len; j++) {
-                if (nums[i] == nums[j]){
+            for (int j = i + 1; j < len; j++) {
+                if (nums[i] == nums[j]) {
                     return nums[i];
                 }
             }
@@ -1038,17 +1026,16 @@ public class Hot {
     }
 
 
-
     public static int subarraySum(int[] nums, int k) {
 
         int res = 0;
 
         int length = nums.length;
-        if (length<1){
+        if (length < 1) {
             return 0;
         }
         int sum = nums[0];
-        if (sum == k){
+        if (sum == k) {
             res++;
         }
 
@@ -1056,16 +1043,16 @@ public class Hot {
 
         for (int i = 1; i < length; i++) {
             sum += nums[i];
-            if (sum==k){
+            if (sum == k) {
                 res++;
-            }else if (sum>k){
-                while (left<=i){
+            } else if (sum > k) {
+                while (left <= i) {
                     sum -= nums[left];
                     ++left;
-                    if (sum < k){
+                    if (sum < k) {
                         break;
                     }
-                    if (sum == k){
+                    if (sum == k) {
                         res++;
                     }
 
@@ -1077,23 +1064,23 @@ public class Hot {
 
 
     public static int lengthOfLongestSubstring11(String s) {
-        Map<Character,Integer> map = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
 
         int result = 0;
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (!map.containsKey(c)){
-                map.put(c,i);
-            }else{
-                result = Math.max(result,map.size());
+            if (!map.containsKey(c)) {
+                map.put(c, i);
+            } else {
+                result = Math.max(result, map.size());
                 Integer integer = map.get(c);
                 map.keySet().removeIf(character -> map.get(character) < integer);
-                map.put(c,i);
+                map.put(c, i);
             }
         }
 
-        return Math.max(result,map.size());
+        return Math.max(result, map.size());
     }
 
 
@@ -1106,22 +1093,20 @@ public class Hot {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (i!=0){
+            if (i != 0) {
                 set.remove(c);
             }
 
-            while (j<s.length() && !set.contains(s.charAt(j))){
+            while (j < s.length() && !set.contains(s.charAt(j))) {
                 set.add(s.charAt(j));
                 ++j;
             }
-            result = Math.max(result,j-i);
+            result = Math.max(result, j - i);
 
         }
 
         return result;
     }
-
-
 
 
     public static String longestPalindrome123(String s) {
@@ -1139,21 +1124,21 @@ public class Hot {
 
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < i; j++) {
-                if (s.charAt(j) == s.charAt(i)){
-                    if (i-j+1 > 2){
-                        if (dp[j+1][i-1]){
+                if (s.charAt(j) == s.charAt(i)) {
+                    if (i - j + 1 > 2) {
+                        if (dp[j + 1][i - 1]) {
                             dp[j][i] = true;
-                            if (i-j+1 > result){
-                                resultStr = s.substring(j,i+1);
+                            if (i - j + 1 > result) {
+                                resultStr = s.substring(j, i + 1);
                             }
-                            result = Math.max(result,i-j+1);
+                            result = Math.max(result, i - j + 1);
                         }
-                    }else{
+                    } else {
                         dp[j][i] = true;
-                        if (i-j+1 > result){
-                            resultStr = s.substring(j,i+1);
+                        if (i - j + 1 > result) {
+                            resultStr = s.substring(j, i + 1);
                         }
-                        result = Math.max(result,i-j+1);
+                        result = Math.max(result, i - j + 1);
                     }
                 }
             }
@@ -1173,7 +1158,7 @@ public class Hot {
 
         Deque<Integer> stack = new ArrayDeque<>();
 
-        dfs123(nums,used,stack,result,length);
+        dfs123(nums, used, stack, result, length);
 
         return result;
 
@@ -1181,17 +1166,17 @@ public class Hot {
 
     private void dfs123(int[] nums, boolean[] used, Deque<Integer> stack, List<List<Integer>> result, int length) {
 
-        if (stack.size() == length){
+        if (stack.size() == length) {
             result.add(new ArrayList<>(stack));
         }
 
         for (int i = 0; i < length; i++) {
-            if (used[i]){
+            if (used[i]) {
                 continue;
             }
             used[i] = true;
             stack.addLast(nums[i]);
-            dfs123(nums,used,stack,result,length);
+            dfs123(nums, used, stack, result, length);
             used[i] = false;
             stack.removeLast();
         }
@@ -1207,12 +1192,12 @@ public class Hot {
 
         boolean result = false;
 
-        List<int[]> list = getFirst(board,first);
+        List<int[]> list = getFirst(board, first);
 
-        if (list.size()==0){
+        if (list.size() == 0) {
             return false;
-        }else{
-            if (list.size()==1 && word.length() == 1){
+        } else {
+            if (list.size() == 1 && word.length() == 1) {
                 return true;
             }
         }
@@ -1221,8 +1206,8 @@ public class Hot {
             int i = ints[0];
             int j = ints[1];
             boolean[][] used = new boolean[board.length][board[0].length];
-            result = dfsexist(board,ints,0,used,length,word);
-            if (result){
+            result = dfsexist(board, ints, 0, used, length, word);
+            if (result) {
                 return result;
             }
         }
@@ -1232,56 +1217,56 @@ public class Hot {
 
     private static boolean dfsexist(char[][] board, int[] ints, int index, boolean[][] used, int length, String word) {
 
-        if (index >length-1){
+        if (index > length - 1) {
             return true;
         }
 
         int i = ints[0];
         int j = ints[1];
 
-        if (used[i][j]){
+        if (used[i][j]) {
             return false;
         }
         int high = board.length;
         int wide = board[0].length;
 
-        if (board[i][j] == word.charAt(index)){
+        if (board[i][j] == word.charAt(index)) {
             used[i][j] = true;
             //上
-            if (i-1>=0){
+            if (i - 1 >= 0) {
                 boolean dfsexist = dfsexist(board, new int[]{i - 1, j}, index + 1, used, length, word);
-                if (dfsexist){
+                if (dfsexist) {
                     return dfsexist;
                 }
             }
 
 
             //下
-            if (i+1<=high-1){
+            if (i + 1 <= high - 1) {
                 boolean dfsexist = dfsexist(board, new int[]{i + 1, j}, index + 1, used, length, word);
-                if (dfsexist){
+                if (dfsexist) {
                     return dfsexist;
                 }
             }
 
             //左
-            if (j-1>=0){
+            if (j - 1 >= 0) {
                 boolean dfsexist = dfsexist(board, new int[]{i, j - 1}, index + 1, used, length, word);
-                if (dfsexist){
+                if (dfsexist) {
                     return dfsexist;
                 }
             }
 
 
             //右
-            if (j+1<=wide-1){
-                boolean dfsexist = dfsexist(board, new int[]{i , j + 1}, index + 1, used, length, word);
-                if (dfsexist){
+            if (j + 1 <= wide - 1) {
+                boolean dfsexist = dfsexist(board, new int[]{i, j + 1}, index + 1, used, length, word);
+                if (dfsexist) {
                     return dfsexist;
                 }
             }
             used[i][j] = false;
-        }else{
+        } else {
             return false;
         }
         return false;
@@ -1295,14 +1280,12 @@ public class Hot {
         for (int i = 0; i < high; i++) {
             for (int j = 0; j < length; j++) {
                 if (board[i][j] == first) {
-                    result.add(new int[]{i,j});
+                    result.add(new int[]{i, j});
                 }
             }
         }
         return result;
     }
-
-
 
 
     public static int maxSubArray123(int[] nums) {
@@ -1313,8 +1296,8 @@ public class Hot {
         int result = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
-            dp[i] = dp[i-1]>=0? nums[i]+dp[i-1]:nums[i];
-            result = Math.max(result,dp[i]);
+            dp[i] = dp[i - 1] >= 0 ? nums[i] + dp[i - 1] : nums[i];
+            result = Math.max(result, dp[i]);
         }
 
         return result;
@@ -1323,6 +1306,7 @@ public class Hot {
 
     /**
      * 暴力
+     *
      * @param height
      * @return
      */
@@ -1334,12 +1318,12 @@ public class Hot {
             int lmax = 0;
             int rmax = 0;
             for (int l = 0; l <= i; l++) {
-                lmax = Math.max(lmax,height[l]);
+                lmax = Math.max(lmax, height[l]);
             }
-            for (int r = i; r <= height.length-1; r++) {
-                rmax = Math.max(rmax,height[r]);
+            for (int r = i; r <= height.length - 1; r++) {
+                rmax = Math.max(rmax, height[r]);
             }
-            res += Math.min(lmax,rmax)-height[i];
+            res += Math.min(lmax, rmax) - height[i];
         }
 
         return res;
@@ -1348,32 +1332,33 @@ public class Hot {
 
     /**
      * 动态规划
+     *
      * @param height
      * @return
      */
     public static int trap2(int[] height) {
 
-        if (height.length==0){
+        if (height.length == 0) {
             return 0;
         }
 
         int[] lmaxDp = new int[height.length];
         int[] rmaxDp = new int[height.length];
         lmaxDp[0] = height[0];
-        rmaxDp[height.length-1] = height[height.length-1];
+        rmaxDp[height.length - 1] = height[height.length - 1];
 
         for (int i = 1; i < height.length; i++) {
-            lmaxDp[i] = Math.max(height[i],lmaxDp[i-1]);
+            lmaxDp[i] = Math.max(height[i], lmaxDp[i - 1]);
         }
 
-        for (int i = height.length-2; i >=0; i--) {
-            rmaxDp[i] = Math.max(height[i],rmaxDp[i+1]);
+        for (int i = height.length - 2; i >= 0; i--) {
+            rmaxDp[i] = Math.max(height[i], rmaxDp[i + 1]);
         }
 
         int res = 0;
 
         for (int i = 0; i < height.length; i++) {
-            res += Math.min(lmaxDp[i],rmaxDp[i])-height[i];
+            res += Math.min(lmaxDp[i], rmaxDp[i]) - height[i];
         }
         return res;
     }
@@ -1381,6 +1366,7 @@ public class Hot {
 
     /**
      * 双指针
+     *
      * @param height
      * @return
      */
@@ -1389,23 +1375,23 @@ public class Hot {
         int res = 0;
 
         int l = 0;
-        int r = height.length-1;
+        int r = height.length - 1;
 
         int lmax = 0;
         int rmax = 0;
 
-        while (l<r){
-            if (height[l]<height[r]){
-                if (height[l]<lmax){
-                    res += lmax-height[l];
-                }else{
+        while (l < r) {
+            if (height[l] < height[r]) {
+                if (height[l] < lmax) {
+                    res += lmax - height[l];
+                } else {
                     lmax = height[l];
                 }
                 ++l;
-            }else{
-                if (height[r]<rmax){
+            } else {
+                if (height[r] < rmax) {
                     res += rmax - height[r];
-                }else{
+                } else {
                     rmax = height[r];
                 }
                 --r;
@@ -1417,7 +1403,7 @@ public class Hot {
 
     public static int lengthOfLongestSubstring1234(String s) {
 
-        if (s.length() == 1){
+        if (s.length() == 1) {
             return 1;
         }
         Map<Character, Integer> map = new HashMap<>();
@@ -1426,8 +1412,8 @@ public class Hot {
         for (int i = 0; i < s.length(); i++) {
             Integer canFindIndex = map.getOrDefault(s.charAt(i), -1);
             tmp = tmp < i - canFindIndex ? tmp + 1 : i - canFindIndex;
-            map.put(s.charAt(i),i);
-            res = Math.max(res,tmp);
+            map.put(s.charAt(i), i);
+            res = Math.max(res, tmp);
         }
         return res;
     }
@@ -1440,8 +1426,8 @@ public class Hot {
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                oldVal[i][j]= used[i][j]?oldVal[i][j]:matrix[i][j];
-                int[] rval = getRotateValue(i,j,n);
+                oldVal[i][j] = used[i][j] ? oldVal[i][j] : matrix[i][j];
+                int[] rval = getRotateValue(i, j, n);
                 oldVal[rval[0]][rval[1]] = matrix[rval[0]][rval[1]];
                 matrix[rval[0]][rval[1]] = oldVal[i][j];
                 used[rval[0]][rval[1]] = true;
@@ -1451,23 +1437,23 @@ public class Hot {
     }
 
     private static int[] getRotateValue(int i, int j, int n) {
-        return new int[]{j,n-1-i};
+        return new int[]{j, n - 1 - i};
     }
 
 
     public static double myPow(double x, int n) {
-        double res = myPow1233(x,n);
-        return n>0?res:1/res;
+        double res = myPow1233(x, n);
+        return n > 0 ? res : 1 / res;
     }
 
     private static double myPow1233(double x, int n) {
-        if (n==0){
+        if (n == 0) {
             return 1;
         }
 
         double v = myPow1233(x, n / 2);
 
-        return n%2==0?v*v:v*v*x;
+        return n % 2 == 0 ? v * v : v * v * x;
     }
 
 
@@ -1490,8 +1476,6 @@ public class Hot {
 //    }
 
 
-
-
     public String[] permutation(String s) {
 
         int length = s.length();
@@ -1504,7 +1488,7 @@ public class Hot {
 
         List<String> dataList = new ArrayList<>();
 
-        permutationDfs(chars,length,0,new StringBuilder(),dataList,used,new HashSet<String>());
+        permutationDfs(chars, length, 0, new StringBuilder(), dataList, used, new HashSet<String>());
 
         String[] res = new String[dataList.size()];
 
@@ -1518,36 +1502,422 @@ public class Hot {
 
     private void permutationDfs(char[] s, int length, int path, StringBuilder cur, List<String> dataList, boolean[] used, HashSet<String> set) {
 
-        if (path==length){
-            if (!set.contains(cur.toString())){
+        if (path == length) {
+            if (!set.contains(cur.toString())) {
                 dataList.add(cur.toString());
             }
             return;
         }
 
         for (int i1 = 0; i1 < length; i1++) {
-            if (used[i1]){
+            if (used[i1]) {
                 continue;
             }
-            if (i1>0 && s[i1]==s[i1-1] && !used[i1-1]){
+            if (i1 > 0 && s[i1] == s[i1 - 1] && !used[i1 - 1]) {
                 continue;
             }
             cur.append(s[i1]);
             used[i1] = true;
-            permutationDfs(s,length,path+1,cur,dataList, used, set);
+            permutationDfs(s, length, path + 1, cur, dataList, used, set);
             used[i1] = false;
-            cur.deleteCharAt(cur.length()-1);
+            cur.deleteCharAt(cur.length() - 1);
         }
-
-
 
 
     }
 
 
+    public static int longestMountain(int[] A) {
+
+        int length = A.length;
+
+        int res = 0;
+
+        for (int index = 1; index < length - 1; index++) {
+            int i = index - 1;
+            int j = index + 1;
+            int lmax = A[index];
+            int rmax = A[index];
+            boolean lstop = false;
+            boolean rstop = false;
+            int resloop = 0;
+            while (i > 0 || j < length - 1) {
+
+                if (A[i] >= lmax) {
+                    lstop = true;
+                }
+
+                if (A[j] >= rmax) {
+                    rstop = true;
+                }
+                if (lstop && rstop) {
+                    break;
+                }
+
+                lmax = A[i];
+                rmax = A[j];
+
+                if (j - i + 1 >= 3) {
+                    resloop = j - i + 1;
+                }
+
+                if (i > 0 && !lstop) {
+                    --i;
+                }
+                if (j < length - 1 && !rstop) {
+                    ++j;
+                }
+
+
+            }
+            res = Math.max(res, resloop);
+        }
+
+        return res;
+    }
+
+
+    public static int findMin(int[] nums) {
+        int length = nums.length;
+
+        if (length == 1) {
+            return nums[0];
+        }
+
+        if (length == 2) {
+            return Math.min(nums[0], nums[1]);
+        }
+
+        return findMinSub(nums, 0, length - 1);
+    }
+
+    public static int findMinSub(int[] nums, int start, int end) {
+
+
+        if (start >= end) {
+            return nums[end];
+        }
+
+        int length = end-start;
+
+        if (length == 1) {
+            return Math.min(nums[start], nums[end]);
+        }
+
+        int mid = (start + end) / 2;
+
+        if (nums[mid - 1] < nums[mid] && nums[mid] < nums[mid + 1]) {
+            if (nums[start] > nums[end]) {
+                if (nums[mid] > nums[start]){
+                    return findMinSub(nums, mid + 1, end);
+                }else{
+                    return findMinSub(nums, start, mid - 1);
+                }
+            } else {
+                return findMinSub(nums, start, mid - 1);
+            }
+        } else {
+            return Math.min(nums[mid + 1],nums[mid]);
+        }
+
+
+    }
+
+
+    public static int findMinSub2(int[] nums, int start, int end) {
+
+
+        if (start >= end) {
+            return nums[end];
+        }
+
+        int length = end - start;
+
+        if (length == 1) {
+            return Math.min(nums[start], nums[end]);
+        }
+
+        int mid = (start + end) / 2;
+        if (nums[mid - 1] == nums[mid] && nums[mid] == nums[mid + 1]) {
+            return nums[mid];
+        } else if (nums[mid - 1] < nums[mid] && nums[mid] <= nums[mid + 1]) {
+            if (nums[start] > nums[end]) {
+                if (nums[mid] > nums[start]) {
+                    return findMinSub2(nums, mid + 1, end);
+                } else if (nums[mid] == nums[start] && nums[mid] == nums[end]) {
+                    return nums[mid];
+                } else {
+                    return findMinSub2(nums, start, mid - 1);
+                }
+            } else {
+                return findMinSub2(nums, start, mid - 1);
+            }
+        } else {
+            return Math.min(nums[mid + 1], nums[mid]);
+        }
+    }
+
+
+
+    public static int minimumEffort(int[][] tasks) {
+
+        Arrays.sort(tasks, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+
+                if ((o2[1] - o2[0]) == (o1[1] - o1[0])) {
+                    return o2[0] - o1[0];
+                } else {
+                    return (o2[1] - o2[0]) - (o1[1] - o1[0]);
+                }
+            }
+        });
+
+        int res = 0;
+
+        for (int i = tasks.length - 1; i >= 0; i--) {
+            res = Math.max(res + tasks[i][0], tasks[i][1]);
+        }
+
+        return res;
+
+    }
+
+
+    public static int firstMissingPositive(int[] nums) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int min = 1;
+
+        for (int num : nums) {
+            if (num <= 0) {
+                continue;
+            }
+            if (num == min) {
+                min = incrMin(++min, map);
+            }
+            map.put(num, 1);
+        }
+        return min;
+    }
+
+    private static int incrMin(int min, HashMap<Integer, Integer> map) {
+        if (map.get(min) == null){
+            return min;
+        }
+        return incrMin(++min,map);
+    }
+
+
+
+    public int findMinDifference(List<String> timePoints) {
+
+        List<Integer> list = new ArrayList<>();
+
+        for (String timePoint : timePoints) {
+            list.add(coverInt(timePoint));
+        }
+        list = list.stream().sorted(Comparator.comparingInt(Integer::intValue)).collect(Collectors.toList());
+
+        int res = Integer.MAX_VALUE;
+
+        for (int i = 0; i < list.size() - 1; i++) {
+            Integer now = list.get(i);
+            Integer next = list.get(i + 1);
+            int dif = next - now;
+            res = Math.min(res, dif > 12 * 60 ? now + 24 * 60 - next : dif);
+        }
+
+
+        Integer now = list.get(0);
+        Integer last = list.get(list.size() - 1);
+        int dif = last - now;
+        res = Math.min(res, dif > 12 * 60 ? now + 24 * 60 - last : dif);
+
+        return res;
+
+    }
+
+
+    public static String minWindow(String s, String t) {
+
+        String res = s;
+
+        int minwindowlength = s.length();
+
+        Map<Character,Integer> map = new HashMap<>();
+        Map<Character,Integer> curmap = new HashMap<>();
+
+        int start = 0;
+        int end = 0;
+
+        int length = s.length();
+
+        int tlength = t.length();
+        for (int i = 0; i < tlength; i++) {
+            map.put(t.charAt(i),1);
+        }
+
+        LinkedList<Character> list = new LinkedList<>();
+
+        while (end<length){
+            if (map.get(s.charAt(end))!= null){
+                curmap.put(s.charAt(end),1);
+            }
+            if (curmap.size() == tlength){
+                if (end-start+1 < minwindowlength){
+                    res = s.substring(start,end+1);
+                    minwindowlength = Math.min(minwindowlength,end-start+1);
+                }
+                list.remove(start);
+                if (!list.contains(s.charAt(start))){
+                    curmap.remove(s.charAt(start));
+                }
+                ++start;
+            }else{
+                list.add(s.charAt(end));
+                ++end;
+            }
+        }
+
+        return res;
+    }
+
+    private Integer coverInt(String i) {
+        Integer hour = Integer.valueOf(i.substring(0, 2));
+        Integer min = Integer.valueOf(i.substring(3, 5));
+        return 60 * hour + min;
+    }
+
+
+    public static int minPathSum(int[][] grid) {
+        // write your code here
+        int hight = grid.length;
+        int width = grid[0].length;
+
+        int[][] dp = new int[hight][width];
+
+        for (int i = 0; i < hight; i++) {
+            for (int j = 0; j < width; j++) {
+                //如果都是0，初始化dp
+                if (i == 0 && j == 0) {
+                    dp[0][0] = grid[0][0];
+                }
+                //初始化纵向dp
+                if (i == 0 && j != 0) {
+                    dp[i][j] = dp[i][j - 1] + grid[i][j];
+                }
+                //初始化横向dp
+                if (i != 0 && j == 0) {
+                    dp[i][j] = dp[i - 1][j] + grid[i][j];
+                }
+                //取最小值
+                if (i != 0 && j != 0) {
+                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+                }
+            }
+        }
+
+        return dp[hight - 1][width - 1];
+    }
+
+
+    public static int Portal(char[][] Maze) {
+        //
+        int height = Maze.length;
+        int width = Maze[0].length;
+
+        int[] sindex = findS(Maze);
+
+        List<Integer> list = new ArrayList<>();
+        boolean[][] used = new boolean[height][width];
+        used[sindex[0]][sindex[1]] = true;
+
+        dfs(sindex[0], sindex[1], 0, list, Maze, height, width, used);
+
+        if (list.size() == 0) {
+            return -1;
+        }
+
+        return list.stream().sorted().findFirst().get();
+
+    }
+
+    /**
+     * 回溯
+     *
+     * @param curHei 当前高度
+     * @param curWid 当前宽度
+     * @param length 配货长度
+     * @param list   结果list
+     * @param maze
+     * @param height 总高度
+     * @param width  总长度
+     * @param used
+     */
+    private static void dfs(int curHei, int curWid, int length, List<Integer> list, char[][] maze, int height, int width, boolean[][] used) {
+
+
+        if (maze[curHei][curWid] == 'E') {
+            list.add(length);
+            return;
+        }
+
+        if (curHei == height - 1 && curWid == width - 1) {
+            return;
+        }
+
+        //从上到下
+        if (curHei + 1 < height && (maze[curHei + 1][curWid] == '*' || maze[curHei + 1][curWid] == 'E') && !used[curHei + 1][curWid]) {
+            used[curHei + 1][curWid] = true;
+            dfs(curHei + 1, curWid, length + 1, list, maze, height, width, used);
+            used[curHei + 1][curWid] = false;
+        }
+
+        //从下到上
+        if (curHei - 1 < height && curHei - 1 >= 0 && (maze[curHei - 1][curWid] == '*' || maze[curHei - 1][curWid] == 'E') && !used[curHei - 1][curWid]) {
+            used[curHei - 1][curWid] = true;
+            dfs(curHei - 1, curWid, length + 1, list, maze, height, width, used);
+            used[curHei - 1][curWid] = false;
+        }
+
+        //从左到右
+        if (curWid + 1 < width && (maze[curHei][curWid + 1] == '*' || maze[curHei][curWid + 1] == 'E') && !used[curHei][curWid + 1]) {
+            used[curHei][curWid + 1] = true;
+            dfs(curHei, curWid + 1, length + 1, list, maze, height, width, used);
+            used[curHei][curWid + 1] = false;
+        }
+
+        //从右到左
+        if (curWid - 1 < width && curWid - 1 >= 0 && (maze[curHei][curWid - 1] == '*' || maze[curHei][curWid - 1] == 'E') && !used[curHei][curWid - 1]) {
+            used[curHei][curWid - 1] = true;
+            dfs(curHei, curWid - 1, length + 1, list, maze, height, width, used);
+            used[curHei][curWid - 1] = false;
+        }
+
+
+    }
+
+    private static int[] findS(char[][] maze) {
+
+        int height = maze.length;
+        int width = maze[0].length;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (maze[i][j] == 'S') {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+
+
+    }
 
     public static void main(String[] args) {
 
+        System.out.println(minWindow("ADOBECODEBANC","ABC"));
 
 //        System.out.println(maximalSquare(new char[][]{{'1'}}));
 //        System.out.println(decodeString1("100[leetcode]"));
